@@ -1,0 +1,44 @@
+修改mysql用户密码
+如果忘记root用户密码，先修改/etc/my.cnf文件：新增
+skip-grant-tables;
+
+select * from user;显示字段名authentication_string
+先把密码置空
+update user set authentication_string="" where user="root";
+刷新
+flush privileges;
+alter user 'root'@'localhost' identified with mysql_native_password by 'pass123';
+
+创建新的用户
+create user 'oracle'@'%' identified with mysql_native_password by 'pass123';
+
+查询Mysql中已经存在的用户
+SELECT DISTINCT CONCAT('User: ''',user,'''@''',host,''';') AS query FROM mysql.user;
+
+删除用户'dbamin'@'localhost'
+drop user 'dbamin'@'localhost';
+
+查看mysql的字符集
+show variables like '%charac%';
+
+为用户增加对数据库的操作权限，并查看
+grant select,update,insert,delete,alter on test.* to 'oracle'@'%';
+show grants for 'oracle'@'%';
+
+查看数据库test的创建过程
+show create database test;
+show create table test;
+
+查看表test的结构
+desc test;
+
+不退出数据库，保存数据库test的备份，还原数据库
+system mysqldump -uroot -p -B -x -F --events test>/home/bak.sql;
+system mysql -uroot -p < /home/bak.sql;
+
+修改数据库test和数据表test的字符集为utf8mb4
+alter database test default character set utf8mb4;
+alter table test default character set utf8mb4;
+
+explain可以显示mysql如何通过索引来select和连接表
+explain select * from test where name='name';
