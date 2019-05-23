@@ -3,3 +3,15 @@ select * from A where A.id in (select id from B where name='test')
 
 统计某个值出现的次数
 select name,count(name) from tableA group by name;
+
+将mysql数据库导入clickhouse
+insert into tabA(id, name) select id, name from mysql("host:port", "database", "tab", "user", "password")
+
+lower(),upper()转换字符大小写
+
+max,min()查找最大或者最小的值
+查找最大的close值,并以aa为字段名返回结果
+select max(close) as aa from tabA
+
+按日期的降序/升序返回结果
+order by date desc/asc
