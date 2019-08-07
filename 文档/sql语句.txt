@@ -1,4 +1,4 @@
-把一个表的查询结果代入到另一个表的查询中去
+﻿把一个表的查询结果代入到另一个表的查询中去
 select * from A where A.id in (select id from B where name='test')
 
 统计某个值出现的次数
@@ -15,3 +15,6 @@ select max(close) as aa from tabA
 
 按日期的降序/升序返回结果
 order by date desc/asc
+
+去掉日期的时分秒
+toDate()
